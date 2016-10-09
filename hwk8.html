@@ -265,15 +265,17 @@
 			res += ("<tr>");
 			for(var j = 0; j < dim; j++){
 				res += ("<td style=\"margin: 0px; padding: 0px; height: 100px; width: 100px; text-align: center;\">");
-				res += ("<a style=\"font-size: 3em;\" id=\"" + i + j + "\" title=\"\" href=\"#\" onclick=\"clicon(" + i.toString() + j.toString() + ");\">");
+
 				if(imgGame){
 					if(i.toString() + j.toString() != emptyCell){
+            res += ("<a style=\"font-size: 3em;\" id=\"" + i + j + "\" title=\"\" href=\"#\" onclick=\"clicon(" + i.toString() + j.toString() + ");\">");
 						res += ("<img style=\"width: 100px; height: 100px;\" src=\"" + formatVal(toArrayVal(i.toString() + j.toString())) + ".jpeg\" />");
+            res += ("</a>");
 					}
 				} else {
-					res += (formatVal(toArrayVal(i.toString() + j.toString())));
+          res += ("<input type=\"button\" style=\"font-size: 3em; height: 100px; width: 100px; background-color: white;\" id=\"" + i + j + "\" title=\"\" onclick=\"clicon(" + i.toString() + j.toString() + ");\" value=\"" + (formatVal(toArrayVal(i.toString() + j.toString()))) + "\" />");
 				}
-				res += ("</a>");
+
 				res += ("</td>");
 			}
 			res += ("</tr>");
