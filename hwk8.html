@@ -27,16 +27,16 @@
 		gameArray[size-1] = -1;
 
 		//alert("New dimension " + dim);
-		drawboard();
 
 		//Randomization
 		if(document.getElementById("randomgame").checked){
-			nbRnd = 200;
+			nbRnd = 100;
 			for(k = 1; k <= nbRnd; k++){
+
 				ranCase = findEmptyIndex();
 				changeDirection = true;
 				do{
-					ranDirection = getRandomInt(1,4);
+					ranDirection = getRandomInt(1,5);
 					if(ranDirection == 1){ //left
 						if(valLeft(toGridVal(ranCase)) != -2){
 							switchCell(toGridVal(ranCase), cellLeft(toGridVal(ranCase)));
@@ -59,9 +59,9 @@
 						}
 					}
 				}while(changeDirection);
-				drawboard();
 			}
 		}
+		drawboard();
 	}
 
 	function getRandomInt(min, max) {
@@ -268,7 +268,7 @@
 	<form name="dimension">
 		<input name="dim" type="text" value="4" />
 		<input name="updatedim" type="button" onclick="updim();" value="Update Dimension" />
-		<br /><input id="randomgame" name="randomgame" type="checkbox" /> Randomized?
+		<br /><input id="randomgame" name="randomgame" type="checkbox" checked="checked" /> Randomized?
 		<br /><input name="details" type="button" onclick="detailSwitch()" value="Show/Hide Details" />
 	</form>
 	<div id="board">
