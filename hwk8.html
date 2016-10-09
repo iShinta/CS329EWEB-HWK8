@@ -11,6 +11,7 @@
 	var dim = 4;
 	//For values, -1 means that the cell is empty, -2 means that the cell doesn't exist
 	var gameArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, -1];
+	var imgGame = false;
 
 	function updim(){
 		n = document.forms["dimension"]["dim"].value;
@@ -22,6 +23,14 @@
 
 		//After Validation
 		dim = n;
+
+		//If picture game
+		if(document.getElementById("imggame").checked){
+			dim = 4;
+			imgGame = true;
+		}else{
+			imgGame = false;
+		}
 
 		//Populate the new game
 		size = dim * dim;
@@ -65,6 +74,7 @@
 				}while(changeDirection);
 			}
 		}
+
 		drawboard();
 	}
 
@@ -240,13 +250,25 @@
 	}
 
 	function drawboard(){
-		res = ("<table border = \"1\">");
+		emptyCell = toGridVal(findEmptyIndex());
+		res = "";
+		if(imgGame){
+			res += ("<table>");
+		} else {
+			res += ("<table border = \"1\">");
+		}
 		for(var i = 0; i < dim; i++){
-			res += ("<tr style=\"height: 100px;\">");
+			res += ("<tr>");
 			for(var j = 0; j < dim; j++){
-				res += ("<td style=\"width: 100px; text-align: center;\">");
-				res += ("<a style=\"font-size: 4em;\" id=\"" + i + j + "\" title=\"\" href=\"#\" onclick=\"clicon(" + i.toString() + j.toString() + ");\">");
-				res += (formatVal(toArrayVal(i.toString() + j.toString())));
+				res += ("<td style=\"margin: 0px; padding: 0px; height: 100px; width: 100px; text-align: center;\">");
+				res += ("<a style=\"font-size: 3em;\" id=\"" + i + j + "\" title=\"\" href=\"#\" onclick=\"clicon(" + i.toString() + j.toString() + ");\">");
+				if(imgGame){
+					if(i.toString() + j.toString() != emptyCell){
+						res += ("<img style=\"width: 100px; height: 100px;\" src=\"" + formatVal(toArrayVal(i.toString() + j.toString())) + ".jpeg\" />");
+					}
+				} else {
+					res += (formatVal(toArrayVal(i.toString() + j.toString())));
+				}
 				res += ("</a>");
 				res += ("</td>");
 			}
@@ -272,7 +294,8 @@
 	<form name="dimension">
 		<input name="dim" type="text" value="4" />
 		<input name="updatedim" type="button" onclick="updim();" value="Update Dimension" />
-		<br /><input id="randomgame" name="randomgame" type="checkbox" checked="checked" /> Randomized?
+		<br /><input id="randomgame" name="randomgame" type="checkbox" checked="checked" /> Randomized
+		<br /><input id="imggame" name="imggame" type="checkbox" /> Picture Game (Size will be automatically set to 4x4)
 		<br /><input name="details" type="button" onclick="detailSwitch()" value="Show/Hide Details" />
 	</form>
 	<div id="board">
