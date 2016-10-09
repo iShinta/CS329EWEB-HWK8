@@ -16,7 +16,10 @@
 	function updim(){
 		n = document.forms["dimension"]["dim"].value;
 		//Validation
-		if(n <= 1){
+		if(isNaN(n)){
+			alert("The dimension has to be an number");
+			return false;
+		}else if(n <= 1){
 			alert("The dimension has to be higher than 1")
 			return false;
 		}
@@ -39,7 +42,7 @@
 		}
 		gameArray[size-1] = -1;
 
-		//alert("New dimension " + dim);
+		//alert("New dimension: " + dim);
 
 		//Randomization
 		if(document.getElementById("randomgame").checked){
@@ -75,6 +78,7 @@
 			}
 		}
 
+		//Render the final board
 		drawboard();
 	}
 
@@ -290,16 +294,30 @@
 
 	-->
 	</script>
-	<div><h1>Game of 15</h1></div>
+	<div><h1 style="font-size: 4em; margin: 0px; margin-bottom: 20px;">Game of 15</h1></div>
 	<form name="dimension">
-		<input name="dim" type="text" value="4" />
-		<input name="updatedim" type="button" onclick="updim();" value="Update Dimension" />
-		<br /><input id="randomgame" name="randomgame" type="checkbox" checked="checked" /> Randomized
-		<br /><input id="imggame" name="imggame" type="checkbox" /> Picture Game (Size will be automatically set to 4x4)
+		<table>
+			<tbody>
+				<tr>
+					<td>Dimension</td>
+					<td><input name="dim" type="text" value="4" /></td>
+				</tr>
+				<tr>
+					<td>Randomized</td>
+					<td><input id="randomgame" name="randomgame" type="checkbox" checked="checked" /></td>
+				</tr>
+				<tr>
+					<td>Picture Game <br /> (Size will be automatically set to 4x4)</td>
+					<td><input id="imggame" name="imggame" type="checkbox" /> </td>
+				</tr>
+			</tbody>
+		</table>
+		<input name="updatedim" type="button" onclick="updim();" value="Start the Game" style="font-size: 3em; height: 100px; width: 400px;" />
 		<br /><input name="details" type="button" onclick="detailSwitch()" value="Show/Hide Details" />
+
+		<div id="board" style="margin-top: 20px;">
+		</div>
 	</form>
-	<div id="board">
-	</div>
 	<br />
 	<div id="state" style="visibility: hidden; border: solid 1px; width: 400px; height: 400px; padding: 10px;">
 		Game is beginning
