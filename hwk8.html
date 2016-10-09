@@ -15,6 +15,10 @@
 	function updim(){
 		n = document.forms["dimension"]["dim"].value;
 		//Validation
+		if(n <= 1){
+			alert("The dimension has to be higher than 1")
+			return false;
+		}
 
 		//After Validation
 		dim = n;
